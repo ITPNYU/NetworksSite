@@ -1,0 +1,56 @@
+<!--a simple WebSocket client example based on https://www.websocket.org/echo.html-->
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<title>WebSocket Test</title>
+<script src='http://localhost:8081/socket.io/socket.io.js'></script>
+<script language="javascript" type="text/javascript">
+
+    var myWebsocket;
+    var serverUri = 'http://localhost:8081';
+    var output;
+
+    function init() {
+        output = document.getElementById("output");
+        testWebSocket();
+    }
+
+    function testWebSocket() {
+        myWebsocket = io(serverUri);
+        myWebsocket.on('welcome', handleWelcome);
+        myWebsocket.on('server message', handleServerMassage);
+        myWebsocket.on('disconnect', handleDisconnect);
+    }
+
+    function handleWelcome() {
+        writeToScreen("CONNECTED To " + serverUri);
+        doSend("Hello server!");
+    }
+
+    function handleDisconnect() {
+        writeToScreen("DISCONNECTED");
+    }
+
+    function handleServerMassage(message) {
+        writeToScreen('<span style="color: blue;">RESPONSE: ' + message + '</span>');
+        myWebsocket.emit('end');
+    }
+
+    function doSend(message) {
+        writeToScreen("SENT: " + message);
+        myWebsocket.emit('client message', message);
+    }
+
+    function writeToScreen(message) {
+        var pre = document.createElement("p");
+        pre.style.wordWrap = "break-word";
+        pre.innerHTML = message;
+        output.appendChild(pre);
+    }
+
+    window.addEventListener("load", init, false);
+
+</script>
+
+<h2>WebSocket Test with Socket.IO</h2>
+
+<div id="output"></div>

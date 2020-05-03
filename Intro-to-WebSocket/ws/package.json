@@ -1,0 +1,15 @@
+{
+  "name": "websocket-wsjs",
+  "version": "1.0.0",
+  "description": "websocket example with ws.js",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "nyu itp",
+  "license": "MIT",
+  "dependencies": {
+    "ws": "^7.2.5"
+  }
+}
