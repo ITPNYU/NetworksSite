@@ -7,44 +7,36 @@
 
     var myWebsocket;
     var serverUri = 'http://localhost:8081';
-    var output;
 
+    //create a websocket client and define event handlers
     function init() {
-        output = document.getElementById("output");
-        testWebSocket();
-    }
-
-    function testWebSocket() {
-        myWebsocket = io(serverUri);
-        myWebsocket.on('welcome', handleWelcome);
+        myWebsocket = io(serverUri); //connecting to the server
+        myWebsocket.on('welcome', handleWelcome); 
         myWebsocket.on('server message', handleServerMassage);
-        myWebsocket.on('disconnect', handleDisconnect);
+        myWebsocket.on('disconnect', handleDisconnect); //when the server calls socket.disconnect(0), the client will receive a 'disconnect' event.
     }
 
+    //print connection status to console, and send a message to the server
     function handleWelcome() {
-        writeToScreen("CONNECTED To " + serverUri);
+        console.log("CONNECTED To " + serverUri);
         doSend("Hello server!");
     }
 
+    //print disconnected message to console
     function handleDisconnect() {
-        writeToScreen("DISCONNECTED");
+        console.log("DISCONNECTED");
     }
 
+    //print response message from server to console, and close the connection
     function handleServerMassage(message) {
-        writeToScreen('<span style="color: blue;">RESPONSE: ' + message + '</span>');
+        console.log('RESPONSE: ' + message);
         myWebsocket.emit('end');
     }
 
+    //send a message to server, and print sent message to console
     function doSend(message) {
-        writeToScreen("SENT: " + message);
         myWebsocket.emit('client message', message);
-    }
-
-    function writeToScreen(message) {
-        var pre = document.createElement("p");
-        pre.style.wordWrap = "break-word";
-        pre.innerHTML = message;
-        output.appendChild(pre);
+        console.log("SENT: " + message);
     }
 
     window.addEventListener("load", init, false);
@@ -52,5 +44,4 @@
 </script>
 
 <h2>WebSocket Test with Socket.IO</h2>
-
-<div id="output"></div>
+<p>Open the console to see WebSocket connection logs.</p>

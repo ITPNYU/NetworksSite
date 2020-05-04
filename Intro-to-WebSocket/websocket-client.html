@@ -6,49 +6,42 @@
 
   var myWebsocket;
   var wsUri = "wss://echo.websocket.org/";
-  var output;
 
+  //create a websocket client and define event handlers
   function init() {
-    output = document.getElementById("output");
-    testWebSocket();
-  }
-
-  function testWebSocket() {
-    myWebsocket = new WebSocket(wsUri);
+    myWebsocket = new WebSocket(wsUri); //create a websocket client that connects to a target URI
     myWebsocket.onopen = openSocket;
     myWebsocket.onclose = closeSocket;
     myWebsocket.onmessage = handleMassage;
     myWebsocket.onerror = handleError;
   }
 
+  //print connection status to console, and send a message to the server
   function openSocket(evt) {
-    writeToScreen("CONNECTED To " + wsUri);
+    console.log("CONNECTED To " + wsUri);
     doSend("Hello server!");
   }
 
+  //print disconnected message to console
   function closeSocket(evt) {
-    writeToScreen("DISCONNECTED");
+    console.log("DISCONNECTED");
   }
 
+  //print response message from server to console, and close the connection
   function handleMassage(evt) {
-    writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data + '</span>');
+    console.log('RESPONSE: ' + evt.data);
     myWebsocket.close();
   }
 
+  //print error message to console
   function handleError(evt) {
-    writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
+    console.log('ERROR: ' + evt.data);
   }
 
+  //send a message to server, and print sent message to console
   function doSend(message) {
-    writeToScreen("SENT: " + message);
     myWebsocket.send(message);
-  }
-
-  function writeToScreen(message) {
-    var pre = document.createElement("p");
-    pre.style.wordWrap = "break-word";
-    pre.innerHTML = message;
-    output.appendChild(pre);
+    console.log("SENT: " + message);
   }
 
   window.addEventListener("load", init, false);
@@ -56,5 +49,4 @@
 </script>
 
 <h2>WebSocket Test</h2>
-
-<div id="output"></div>
+<p>Open the console to see WebSocket connection logs.</p>
