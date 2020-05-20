@@ -1,5 +1,5 @@
-const express = require('express');
-const request = require('request');
+const express = require('express'); //include the express module
+const request = require('request'); //include the request module
 
 const app = express();
 
