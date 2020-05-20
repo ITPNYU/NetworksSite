@@ -12,8 +12,7 @@ function setup(){
 
 function draw() {
   if (!res) {
-      // Wait until the earthquake data has loaded before drawing.
-    return;
+    return; // Wait until the earthquake data has loaded before drawing.
   }
   background(200);
   textAlign(CENTER);
