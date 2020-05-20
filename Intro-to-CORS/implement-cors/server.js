@@ -16,4 +16,4 @@ app.get('/hi', (req, res) => {
 });
 
 const PORT = 3000;
-app.listen(PORT, () => console.log('CORS-enabled web server is listening on port 3000'));
+app.listen(PORT, () => console.log('CORS-enabled server is listening on port 3000'));
