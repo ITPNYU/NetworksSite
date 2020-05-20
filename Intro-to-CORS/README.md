@@ -2,6 +2,8 @@
 Example code for the "An Introduction to CORS" blog post on ITP Networks site. 
 (Link will be provided once the blog post is published.)
 
+- The proxy folder contains a CORS proxy server example, and the implement-cors folder contains a server + client example for implementing your own CORS policy.
+
 - You will need to have Node.js installed in order to run the examples.
 
 - Instructions for using the examples:
